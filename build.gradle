@@ -48,7 +48,7 @@ import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 docker {
-    url = dockerHost
+    url = dockerHost.replace("tcp", "https")
     certPath = new File(dockerCertPath)
 }
 
@@ -80,5 +80,5 @@ task functionalTest(type: Test) {
 
 task startAnimalShelter() {
     dependsOn startAppContainer
-    println "Application running on: " + containerUrl \
+    println "Application running on: " + containerUrl
 }
