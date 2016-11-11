@@ -48,7 +48,7 @@ import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 docker {
-    url = dockerHost.replace("tcp", "http")
+    url = dockerHost
     certPath = new File(dockerCertPath)
 }
 
