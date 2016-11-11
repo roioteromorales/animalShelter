@@ -1,0 +1,84 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+jar {
+    baseName = 'animal-shelter'
+    version = '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    testCompile 'com.mashape.unirest:unirest-java:1.4.9'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    exclude '**/integration/**'
+}
+
+def dockerHost = "tcp://192.168.1.101:2376"
+def dockerCertPath = "C:\\Users\\darks\\.docker\\"
+def tomcatExternalPort = "18080"
+def appName = "animal-shelter-app"
+def containerUrl = dockerHost.replace("tcp", "http").subSequence(0, dockerHost.size() - 3) + tomcatExternalPort + "/"
+
+import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+
+docker {
+    url = dockerHost.replace("tcp", "http")
+    certPath = new File(dockerCertPath)
+}
+
+task buildAppImage(type: DockerBuildImage) {
+    inputDir = project.rootDir
+    tag = appName
+}
+
+task createAppContainer(type: DockerCreateContainer) {
+    dependsOn buildAppImage
+    targetImageId {"animal-shelter-app:" + buildAppImage.getImageId() }
+    portBindings = [tomcatExternalPort + ':8080']
+}
+
+task startAppContainer(type: DockerStartContainer) {
+    dependsOn createAppContainer
+    targetContainerId { createAppContainer.getContainerId() }
+}
+
+task stopAppContainer(type: DockerStopContainer) {
+    targetContainerId { createAppContainer.getContainerId() }
+}
+
+task functionalTest(type: Test) {
+    dependsOn startAppContainer
+    include '**/integration/**'
+    finalizedBy stopAppContainer
+}
+
+task startAnimalShelter() {
+    dependsOn startAppContainer
+    println "Application running on: " + containerUrl \
+}
