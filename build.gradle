@@ -39,7 +39,6 @@ test {
 def dockerHost = "tcp://192.168.1.101:2376"
 def dockerCertPath = System.properties['user.home'] + "/.docker/"
 def tomcatExternalPort = "18080"
-def appName = "animal-shelter-app"
 def containerUrl = dockerHost.replace("tcp", "http").subSequence(0, dockerHost.size() - 3) + tomcatExternalPort + "/"
 
 import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
@@ -48,18 +47,18 @@ import com.bmuschko.gradle.docker.tasks.container.DockerStopContainer
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 
 docker {
-    url = dockerHost.replace("tcp", "https")
-    certPath = new File(dockerCertPath)
+    url = 'https://192.168.1.101:2376'
+    certPath = new File(System.properties['user.home'], '/.docker/')
 }
 
 task buildAppImage(type: DockerBuildImage) {
     inputDir = project.rootDir
-    tag = appName
+    tag = "rss/animal-shelter"
 }
 
 task createAppContainer(type: DockerCreateContainer) {
     dependsOn buildAppImage
-    targetImageId {"animal-shelter-app:" + buildAppImage.getImageId() }
+    targetImageId { buildAppImage.getImageId() }
     portBindings = [tomcatExternalPort + ':8080']
 }
 
