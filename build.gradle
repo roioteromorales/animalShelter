@@ -37,9 +37,9 @@ test {
     exclude '**/integration/**'
 }
 
-def dockerHost = "tcp://192.168.1.101:2376"
+//def dockerHost = "tcp://192.168.1.101:2376"
 def tomcatExternalPort = "18080"
-def containerUrl = dockerHost.replace("tcp", "http").subSequence(0, dockerHost.size() - 3) + tomcatExternalPort + "/"
+//def containerUrl = dockerHost.replace("tcp", "http").subSequence(0, dockerHost.size() - 3) + tomcatExternalPort + "/"
 
 import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
 import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
@@ -79,5 +79,5 @@ task functionalTest(type: Test) {
 
 task startAnimalShelter() {
     dependsOn startAppContainer
-    println "Application running on: " + containerUrl
+//    println "Application running on: " + containerUrl
 }
