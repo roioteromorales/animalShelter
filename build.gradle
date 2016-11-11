@@ -27,6 +27,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'org.assertj:assertj-core:3.5.2'
 
     testCompile 'com.mashape.unirest:unirest-java:1.4.9'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
