@@ -1,0 +1,2 @@
+def dockerHost = "tcp://192.168.1.101:2376"
+def dockerCertPath = "C:\\Users\\darks\\.docker\\"

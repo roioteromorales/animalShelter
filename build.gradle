@@ -37,7 +37,7 @@ test {
 }
 
 def dockerHost = "tcp://192.168.1.101:2376"
-def dockerCertPath = "C:\\Users\\darks\\.docker\\"
+def dockerCertPath = System.getProperty("user.home") + "/.docker/"
 def tomcatExternalPort = "18080"
 def appName = "animal-shelter-app"
 def containerUrl = dockerHost.replace("tcp", "http").subSequence(0, dockerHost.size() - 3) + tomcatExternalPort + "/"
