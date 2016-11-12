@@ -27,9 +27,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile 'org.assertj:assertj-core:3.5.2'
     compile 'javax.inject:javax.inject:1'
+    compile 'org.slf4j:slf4j-log4j12:1.7.19'
 
+    testCompile 'org.assertj:assertj-core:3.5.2'
     testCompile 'com.mashape.unirest:unirest-java:1.4.9'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -53,7 +54,6 @@ docker {
 }
 
 task buildAppImage(type: DockerBuildImage) {
-    dependsOn build
     inputDir = project.rootDir
     tag = "rss/animal-shelter"
 }

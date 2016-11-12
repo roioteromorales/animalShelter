@@ -1,18 +1,21 @@
 package com.roisoftstudio.animalshelter.framework.animal;
 
 import com.roisoftstudio.animalshelter.domain.animal.Animal;
+import com.roisoftstudio.animalshelter.framework.Responses.HttpResponse;
 import com.roisoftstudio.animalshelter.framework.repositories.AnimalRepository;
-import org.springframework.http.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.*;
 
 @RestController
 public class AnimalController {
+    private static final Logger LOG = LoggerFactory.getLogger(AnimalController.class);
 
     private AnimalRepository animalRepository;
 
@@ -26,14 +29,21 @@ public class AnimalController {
         return "Animal Api is up!";
     }
 
-    @RequestMapping("/animals")
+    @RequestMapping(value = "/animals", produces = APPLICATION_JSON_VALUE)
     public List<Animal> greeting() {
         return animalRepository.getAllAnimals();
     }
 
-    @RequestMapping(value="/animals/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public void add(@RequestBody Animal animal) {
-        animalRepository.save(animal);
+    @RequestMapping(value="/animals/add", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public HttpResponse add(@RequestBody Animal animal) {
+        LOG.info("/animals/add - " + animal.getName());
+
+        try {
+            animalRepository.save(animal);
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            e.printStackTrace();
+        }
+        return new HttpResponse(OK.value(), "The animal was saved successfully");
     }
 }
