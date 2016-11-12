@@ -1,10 +1,6 @@
 package com.roisoftstudio.animalshelter.domain.animal;
 
-import org.apache.tomcat.util.codec.binary.StringUtils;
-
 import java.io.Serializable;
-
-import static org.springframework.util.StringUtils.isEmpty;
 
 public class Animal implements Serializable {
     private String name;
