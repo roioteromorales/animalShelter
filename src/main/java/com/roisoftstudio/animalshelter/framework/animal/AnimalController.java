@@ -1,20 +1,11 @@
 package com.roisoftstudio.animalshelter.framework.animal;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.roisoftstudio.animalshelter.domain.animal.Animal;
 import com.roisoftstudio.animalshelter.framework.repositories.AnimalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-
-import static com.roisoftstudio.animalshelter.domain.animal.AnimalBuilder.aPuppy;
-import static java.util.Arrays.asList;
+import java.util.List;
 
 @RestController
 public class AnimalController {
@@ -28,7 +19,7 @@ public class AnimalController {
 
     @RequestMapping("/")
     public String home() {
-        return "Hello Docker World";
+        return "Animal Api is up!";
     }
 
     @RequestMapping("/animals")
@@ -36,5 +27,9 @@ public class AnimalController {
         return animalRepository.getAllAnimals();
     }
 
-
+    @RequestMapping(value="/animals/add", method = RequestMethod.POST)
+    @ResponseBody
+    public void add(@RequestBody Animal animal) {
+        animalRepository.save(animal);
+    }
 }

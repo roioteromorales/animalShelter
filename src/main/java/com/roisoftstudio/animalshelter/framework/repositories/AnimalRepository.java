@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AnimalRepository {
     List<Animal> getAllAnimals();
+    void save(Animal animal);
 }
