@@ -1,6 +1,8 @@
 package com.roisoftstudio.animalshelter.framework.Responses;
 
-public class HttpResponse {
+import java.io.Serializable;
+
+public class HttpResponse implements Serializable {
     private String message;
     private int status;
 

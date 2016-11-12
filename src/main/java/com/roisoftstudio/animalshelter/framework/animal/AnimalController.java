@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.*;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class AnimalController {
@@ -34,7 +35,8 @@ public class AnimalController {
         return animalRepository.getAllAnimals();
     }
 
-    @RequestMapping(value="/animals/add", method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(value="/animals/add", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseBody
     public HttpResponse add(@RequestBody Animal animal) {
         LOG.info("/animals/add - " + animal.getName());
 
