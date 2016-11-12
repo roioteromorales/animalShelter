@@ -3,6 +3,7 @@ package com.roisoftstudio.animalshelter.framework.repositories;
 import com.roisoftstudio.animalshelter.domain.animal.Animal;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,14 +20,13 @@ public class InMemoryAnimalRepository implements AnimalRepository {
     private String swimmerPuppy = "http://petapixel.com/assets/uploads/2014/09/COREY_promo.jpg";
 
     public InMemoryAnimalRepository() {
-        animals = Arrays.asList(
-                aPuppy().withName("Hipster Puppy").withImageUrl(hipsterPuppy).withDescription("hipsterPuppy description").createPuppy(),
-                aPuppy().withName("Cute Puppy").withImageUrl(cutePuppy).withDescription("cutePuppy description").createPuppy(),
-                aPuppy().withName("Gangsta Puppy").withImageUrl(gangstaPuppy).withDescription("gangstaPuppy description").createPuppy(),
-                aPuppy().withName("Smart Puppy").withImageUrl(smartPuppy).withDescription("smartPuppy description").createPuppy(),
-                aPuppy().withName("Water Puppy").withImageUrl(waterPuppy).withDescription("waterPuppy description").createPuppy(),
-                aPuppy().withName("Swimmer Puppy").withImageUrl(swimmerPuppy).withDescription("swimmerPuppy description").createPuppy()
-        );
+        animals = new ArrayList<>();
+        animals.add(aPuppy().withName("Hipster Puppy").withImageUrl(hipsterPuppy).withDescription("hipsterPuppy description").createPuppy());
+        animals.add( aPuppy().withName("Cute Puppy").withImageUrl(cutePuppy).withDescription("cutePuppy description").createPuppy());
+        animals.add(aPuppy().withName("Gangsta Puppy").withImageUrl(gangstaPuppy).withDescription("gangstaPuppy description").createPuppy());
+        animals.add( aPuppy().withName("Smart Puppy").withImageUrl(smartPuppy).withDescription("smartPuppy description").createPuppy());
+        animals.add(aPuppy().withName("Water Puppy").withImageUrl(waterPuppy).withDescription("waterPuppy description").createPuppy());
+        animals.add( aPuppy().withName("Swimmer Puppy").withImageUrl(swimmerPuppy).withDescription("swimmerPuppy description").createPuppy());
     }
 
     @Override
