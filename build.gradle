@@ -31,7 +31,7 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter-jdbc:1.4.1.RELEASE'
     compile 'org.apache.commons:commons-dbcp2:2.1.1'
-    testCompile 'mysql:mysql-connector-java:6.0.5'
+    compile 'mysql:mysql-connector-java:6.0.5'
 
     testCompile 'org.assertj:assertj-core:3.5.2'
     testCompile 'com.mashape.unirest:unirest-java:1.4.9'
