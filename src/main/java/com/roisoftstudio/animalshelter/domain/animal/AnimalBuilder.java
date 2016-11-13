@@ -1,13 +1,24 @@
 package com.roisoftstudio.animalshelter.domain.animal;
 
 public class AnimalBuilder {
+    private int id;
+    private int ownerId;
     private String name;
-    private String imageUrl;
     private String description;
+    private String type;
 
-    public AnimalBuilder withName(String name) {
+    //Non Mandatory
+    private String imageUrl;
+    private String breed;
+    private String age;
+    private String gender;
+    private String location;
+
+    public AnimalBuilder(int ownerId, String name, String description, String type) {
+        this.ownerId = ownerId;
         this.name = name;
-        return this;
+        this.description = description;
+        this.type = type;
     }
 
     public AnimalBuilder withImageUrl(String imageUrl) {
@@ -15,16 +26,37 @@ public class AnimalBuilder {
         return this;
     }
 
-    public AnimalBuilder withDescription(String description) {
-        this.description = description;
+    public AnimalBuilder withBreed(String breed) {
+        this.breed = breed;
         return this;
     }
 
-    public static AnimalBuilder aPuppy(){
-        return new AnimalBuilder();
+    public AnimalBuilder withAge(String age) {
+        this.age = age;
+        return this;
     }
 
-    public Animal createPuppy() {
-        return new Animal(name, imageUrl, description);
+    public AnimalBuilder withGender(String gender) {
+        this.gender = gender;
+        return this;
+    }
+
+    public AnimalBuilder withLocation(String location) {
+        this.location = location;
+        return this;
+    }
+
+    public static AnimalBuilder anAnimal(int ownerId, String name, String description, String type){
+        return new AnimalBuilder(ownerId, name, description, type);
+    }
+
+    public Animal createAnimal() {
+        Animal animal = new Animal(ownerId, name, description, type);
+        animal.setImageUrl(imageUrl);
+        animal.setBreed(breed);
+        animal.setAge(age);
+        animal.setGender(gender);
+        animal.setLocation(location);
+        return animal;
     }
 }

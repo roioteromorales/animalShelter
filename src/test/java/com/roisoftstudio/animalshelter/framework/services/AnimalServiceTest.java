@@ -29,22 +29,22 @@ public class AnimalServiceTest {
 
     @Test(expected = InvalidAnimalException.class)
     public void should_throwAnException_whenSavingAnAnimalWithoutName() throws Exception {
-        animalService.save(new Animal("", "imageUrl", "description"));
-    }
-
-    @Test(expected = InvalidAnimalException.class)
-    public void should_throwAnException_whenSavingAnAnimalWithoutImageUrl() throws Exception {
-        animalService.save(new Animal("name", "", "description"));
+        animalService.save(new Animal(1, "", "description", "type"));
     }
 
     @Test(expected = InvalidAnimalException.class)
     public void should_throwAnException_whenSavingAnAnimalWithoutDescription() throws Exception {
-        animalService.save(new Animal("name", "imageUrl", ""));
+        animalService.save(new Animal(1, "name", "", "type"));
+    }
+
+    @Test(expected = InvalidAnimalException.class)
+    public void should_throwAnException_whenSavingAnAnimalWithoutType() throws Exception {
+        animalService.save(new Animal(1, "name", "description", ""));
     }
 
     @Test
     public void should_saveAnAnimal_whenIsValid() throws Exception {
-        Animal animal = new Animal("name", "imageUrl", "description");
+        Animal animal = new Animal(1, "name", "description", "type");
         animalService.save(animal);
 
         verify(animalRepository, only()).save(animal);

@@ -31,15 +31,17 @@ public class AnimalService {
 
     private void validate(Animal animal) throws InvalidAnimalException {
         String errorMessage = "";
-
+        if (isEmpty(animal.getOwnerId())) {
+            errorMessage += "Mandatory attribute 'ownerId' is missing.\n";
+        }
         if (isEmpty(animal.getName())) {
             errorMessage += "Mandatory attribute 'name' is missing.\n";
         }
         if (isEmpty(animal.getDescription())) {
             errorMessage += "Mandatory attribute 'description' is missing.\n";
         }
-        if (isEmpty(animal.getImageUrl())) {
-            errorMessage += "Mandatory attribute 'imageUrl' is missing.\n";
+        if (isEmpty(animal.getType())) {
+            errorMessage += "Mandatory attribute 'type' is missing.\n";
         }
 
         if (!isEmpty(errorMessage)) {
