@@ -1,4 +1,4 @@
-# Animal Shelter Readme
+# Dognity - (backend) Readme
 
 ## Gradle tasks:
 ### build
